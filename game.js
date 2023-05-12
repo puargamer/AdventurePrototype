@@ -167,6 +167,9 @@ class Kitchen extends AdventureScene {
         super("kitchen", "kitchen room");
     }
     onEnter() {
+        
+
+
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
         .setFontSize(this.s * 2)
         .setInteractive()
