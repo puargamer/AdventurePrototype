@@ -124,13 +124,44 @@ class Entrance extends AdventureScene {
     }
     preload() {
         this.load.image('entrance','./assets/backgrounds/entrance.png');
+        this.load.image('chains','./assets/images/chains.png');
+        this.load.image('bluekey','./assets/images/blue key.png');
     }
     onEnter() {
         //background
-        let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x584024).setOrigin(0);
-
+        //let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x584024).setOrigin(0);
         let background = this.add.image(this.w *.35,this.h *.5,'entrance').setOrigin(0.5);
-        background.scale = .3;
+        background.scale = .5;
+
+        //locks
+        let chain1 = this.add.image(this.w *.35,this.h *.3,'chains');
+        let chain2 = this.add.image(this.w *.35,this.h *.3,'chains');
+        chain1.scale = chain2.scale = .5;
+
+        chain2.flipX= true;
+
+        //bluekey
+        if (!this.hasItem("Blue Key")) {
+            let bluekey = this.add.image(this.w *.7,this.h *.4,'bluekey')
+                bluekey.scale =.2
+                bluekey.angle = -90
+                bluekey.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage("A blue key.")
+                })
+                .on('pointerdown',()=> {
+                    this.showMessage("You picked up the Blue Key.");
+                    this.gainItem('Blue Key');
+                    this.tweens.add({
+                        targets: bluekey,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => bluekey.destroy()
+                    });
+                })
+        }
+
 
         let livingroom = this.add.text(this.w * 0.3, this.w * 0.4, "living room")
             .setFontSize(this.s * 2)
@@ -175,6 +206,8 @@ class LivingRoom extends AdventureScene {
             .on('pointerdown', () => {
                 this.gotoScene('bedroom');
             });
+        
+        console.log(this.hasItem("redkey"));
     }
 }
 
@@ -184,11 +217,35 @@ class Kitchen extends AdventureScene {
     }
     preload() {
         this.load.image('kitchen','./assets/backgrounds/kitchen.png');
+        this.load.image('redkey','./assets/images/red key.png');
     }
     onEnter() {
-        //backgroundnn
+        //background
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
+
+        //redkey
+        console.log(this.hasItem("redkey"));
+        if (!this.hasItem("Red Key")) {
+            let redkey = this.add.image(this.w *.56,this.h *.65,'redkey')
+                redkey.scale =.2
+                redkey.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage("A red key.")
+                })
+                .on('pointerdown',()=> {
+                    this.showMessage("You picked up the Red Key.");
+                    this.gainItem('Red Key');
+                    this.tweens.add({
+                        targets: redkey,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => redkey.destroy()
+                    });
+                })
+        }
+
 
 
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
@@ -238,7 +295,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[LivingRoom,Entrance,Kitchen,Bedroom],
+    scene:[Kitchen,Entrance,LivingRoom,Bedroom],
     title: "Adventure Game",
 });
 
