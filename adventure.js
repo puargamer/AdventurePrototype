@@ -149,23 +149,13 @@ class AdventureScene extends Phaser.Scene {
     }
 
     //custom functions
-
-    //loads door
-    doorloader(door) {
-        this.load.once("complete", this.doorcreate,this)
-        this.load.image('door', `./assets/images/blue door.png`);
-        this.load.start();
-        
-        return this.doorcreate();
-    }
-
     //creates and animates door after loading
     doorcreate(){
-        let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
+        /*
         let bruh = this.add.image(this.w *.35,this.h*.45, 'door');
         bruh.scale = .3;
         return bruh;
-
+        */
         /*
         bruh.setInteractive()
         .on('pointerover',()=>{
@@ -182,4 +172,12 @@ class AdventureScene extends Phaser.Scene {
             });
         }) */
         }
+
+    //door cinematic
+    doorlogic(doorname) {
+        //create door, background
+        let background = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
+        let door = this.add.image(this.w *.35,this.h*.45, `${doorname}`);
+        door.scale = .3;
+    }
 }
