@@ -149,32 +149,13 @@ class AdventureScene extends Phaser.Scene {
     }
 
     //custom functions
-    //creates and animates door after loading
-    doorcreate(){
-        /*
-        let bruh = this.add.image(this.w *.35,this.h*.45, 'door');
-        bruh.scale = .3;
-        return bruh;
-        */
-        /*
-        bruh.setInteractive()
-        .on('pointerover',()=>{
-            this.showMessage("Open door?")
-        })
-        .on('pointerdown',()=> {
-            //this.showMessage("You opened the door.");
-            this.tweens.add({
-                targets: bruh,
-                y: `-=${2 * this.s}`,
-                alpha: { from: 1, to: 0 },
-                duration: 500,
-                onComplete: () => bruh.destroy()
-            });
-        }) */
-        }
 
-    //door cinematic
-    doorlogic(doorname, haskey) {
+    //Doorlogic
+    //
+    //Door cinematic that opens if you have the right key
+    //doorname = door png, keyname = name of key, scene = next scene
+    //requires door to be preloaded in scene
+    doorlogic(doorname, keyname, scene) {
         //create door, background, exit button
         let background = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
         let door = this.add.image(this.w *.35,this.h*.45, `${doorname}`);
@@ -200,30 +181,54 @@ class AdventureScene extends Phaser.Scene {
         })
 
 
-    //door logic
-    door.setInteractive()
-        .on('pointerover',()=>{
-            this.showMessage("Open door?")
-        })
-        .on('pointerdown',()=> {
-            if (haskey == true) {
-                this.showMessage("You opened the door.");
-                this.tweens.add({
-                    targets: [door, background],
-                    //y: `-=${2 * this.s}`,
-                    scale: 5,
-                    alpha: { from: 1, to: 0 },
-                    duration: 1500,
-                    onComplete: () => background.destroy(),
-                    onComplete: () => background.destroy(),
-                    onComplete: () => button.destroy()
-                });
-            } else {
-                this.showMessage("You don't have the right key.");
-            }
-        })
+        //door logic
+        door.setInteractive()
+            .on('pointerover',()=>{
+                this.showMessage("Open door?")
+            })
+            .on('pointerdown',()=> {
+                if (this.hasItem(`${keyname}`)) {
+                    this.showMessage("You opened the door.");
+                    this.tweens.add({
+                        targets: [door, background],
+                        //y: `-=${2 * this.s}`,
+                        scale: 5,
+                        alpha: { from: 1, to: 0 },
+                        duration: 1500,
+                        onComplete: () => background.destroy(),
+                        onComplete: () => background.destroy(),
+                        onComplete: () => button.destroy()
+                    });
+                    
+                    //goes to next scene
+                    this.gotoScene(`${scene}`);
+                    return;
 
+                } else {
+                    this.showMessage("You don't have the right key.");
+                }
+            })
+    }
 
-
+    //Arrows
+    //
+    //shows arrows that lead to doors
+    //requires arrows and doors to be preloaded in scene
+    arrows(up,left,right,updoor,leftdoor,rightdoor) {
+        console.log('in arrows');
+        if (up == true) {
+            let arrow = this.add.image(this.w *.375,this.h*.05, 'arrow');
+            arrow.scale = .1;
+        }
+        if (left == true) {
+            let arrow = this.add.image(this.w *.05,this.h*.5, 'arrow');
+            arrow.angle = -90;
+            arrow.scale = .1;
+        }
+        if (right == true) {
+            let arrow = this.add.image(this.w *.7,this.h*.5, 'arrow');
+            arrow.angle = 90;
+            arrow.scale = .1; 
+        }
     }
 }
