@@ -152,7 +152,7 @@ class AdventureScene extends Phaser.Scene {
 
     //Doorlogic
     //
-    //Door cinematic that opens if you have the right key
+    //Door object cinematic that opens if you have the right key
     //doorname = door png, keyname = name of key, scene = next scene
     //requires door to be preloaded in scene
     doorlogic(doorname, keyname, scene) {
@@ -213,22 +213,71 @@ class AdventureScene extends Phaser.Scene {
     //Arrows
     //
     //shows arrows that lead to doors
+    //
+    //directions = X
+    //X: booleans to make arrows
+    //Xdoor: assign door to direction
+    //Xdoorkey: assign key to door
+    //Xlocation: assign location to door
+    //
+    //if door doesnt need key, leave key as null
     //requires arrows and doors to be preloaded in scene
-    arrows(up,left,right,updoor,leftdoor,rightdoor) {
+    arrows(down,left,right,downdoor,leftdoor,rightdoor, downdoorkey, leftdoorkey, rightdoorkey, downlocation, leftlocation, rightlocation) {
         console.log('in arrows');
-        if (up == true) {
-            let arrow = this.add.image(this.w *.375,this.h*.05, 'arrow');
+        if (down == true) {
+            let arrow = this.add.image(this.w *.375,this.h*.95, 'arrow');
+            arrow.angle = 180;
             arrow.scale = .1;
+
+            arrow.setInteractive()
+                .on('pointerdown',()=> {
+                    //if don't need key, just go to room
+                    if (downdoorkey == null) {
+                        this.gotoScene(`${downlocation}`);
+                        return;
+                    }
+                    //else, call doorlogic
+                    else {
+                    this.doorlogic(`${downdoor}`,`${downdoorkey}`, `${downlocation}`);
+                    }
+                })
         }
         if (left == true) {
             let arrow = this.add.image(this.w *.05,this.h*.5, 'arrow');
             arrow.angle = -90;
             arrow.scale = .1;
+
+            arrow.setInteractive()
+                .on('pointerdown',()=> {
+                    //if don't need key, just go to room
+                    if (leftdoorkey == null) {
+                        this.gotoScene(`${leftlocation}`);
+                        return;
+                    }
+                    //else, call doorlogic
+                    else {
+                    this.doorlogic(`${leftdoor}`,`${leftdoorkey}`, `${leftlocation}`);
+                    }
+                })
+            
         }
         if (right == true) {
             let arrow = this.add.image(this.w *.7,this.h*.5, 'arrow');
             arrow.angle = 90;
-            arrow.scale = .1; 
+            arrow.scale = .1;
+
+            arrow.setInteractive()
+                .on('pointerdown',()=> {
+                    //if don't need key, just go to room
+                    if (rightdoorkey == null) {
+                        this.gotoScene(`${rightlocation}`);
+                        return;
+                    }
+                    //else, call doorlogic
+                    else {
+                    this.doorlogic(`${rightdoor}`,`${rightdoorkey}`, `${rightlocation}`);
+                    }
+                })
         }
     }
 }

@@ -164,12 +164,19 @@ class Entrance extends AdventureScene {
         this.load.image('chains','./assets/images/chains.png');
         this.load.image('bluekey','./assets/images/blue key.png');
         this.load.image('lock','./assets/images/lock.png');
+        this.load.image('door','./assets/images/door.png');
     }
     onEnter() {
         //background
         //let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x584024).setOrigin(0);
         let background = this.add.image(this.w *.35,this.h *.5,'entrance').setOrigin(0.5);
         background.scale = .5;
+
+        //arrows
+        this.arrows(true,false,false, 
+            'door', null, null, 
+            null, null, null, 
+            'livingroom', null, null);
 
         //locks
         let lock1 = this.add.image(this.w *.36,this.h *.47,'lock');
@@ -233,6 +240,7 @@ class LivingRoom extends AdventureScene {
         this.load.image('arrow','./assets/images/arrow.png');
         this.load.image('living room','./assets/backgrounds/living room.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
+        this.load.image('reddoor','./assets/images/red door.png');
         this.load.image('chicken','./assets/images/chicken.png');
     }
     onEnter() {
@@ -250,11 +258,13 @@ class LivingRoom extends AdventureScene {
                 this.gotoScene('kitchen');
             });
 
-        //this.doorlogic('bluedoor', 'Blue Key', 'kitchen');
+        //arrows
+        this.arrows(false,true,true, 
+                    null, 'reddoor', 'bluedoor', 
+                    null, 'Red Key', 'Blue Key', 
+                    null, 'bedroom', 'kitchen');
 
-        this.arrows(false,true,true);
-
-            //box
+        //box
         if (!this.hasItem("chicken")) {
             let box = this.add.image(this.w *.5,this.h *.45,'box')
                 box.scale =.06
@@ -317,6 +327,12 @@ class Kitchen extends AdventureScene {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
+
+        //arrows
+        this.arrows(false,true,false, 
+                    null, 'bluedoor', null, 
+                    null, 'Blue Key', null, 
+                    null, 'livingroom', null);
 
         //redkey
         if (!this.hasItem("Red Key")) {
@@ -408,7 +424,7 @@ class Bedroom extends AdventureScene {
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'bedroom').setOrigin(0.5);
-        background.scale = .5;
+        background.scale = .38;
 
         //gold key
         if (!this.hasItem("Gold Key")) {
