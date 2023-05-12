@@ -159,6 +159,7 @@ class Entrance extends AdventureScene {
         super("entrance","Entrance");
     }
     preload() {
+        this.load.image('arrow','./assets/images/arrow.png');
         this.load.image('entrance','./assets/backgrounds/entrance.png');
         this.load.image('chains','./assets/images/chains.png');
         this.load.image('bluekey','./assets/images/blue key.png');
@@ -229,8 +230,9 @@ class LivingRoom extends AdventureScene {
         super("livingroom", "Living Room");
     }
     preload() {
+        this.load.image('arrow','./assets/images/arrow.png');
         this.load.image('living room','./assets/backgrounds/living room.png');
-        this.load.image('bluedoor','./assets//images/blue door.png');
+        this.load.image('bluedoor','./assets/images/blue door.png');
         this.load.image('chicken','./assets/images/chicken.png');
     }
     onEnter() {
@@ -248,9 +250,9 @@ class LivingRoom extends AdventureScene {
                 this.gotoScene('kitchen');
             });
 
-        this.doorlogic('bluedoor', 'Blue Key', 'kitchen');
+        //this.doorlogic('bluedoor', 'Blue Key', 'kitchen');
 
-        this.arrows(true,false,true);
+        this.arrows(false,true,true);
 
             //box
         if (!this.hasItem("chicken")) {
@@ -304,12 +306,12 @@ class Kitchen extends AdventureScene {
         super("kitchen", "Kitchen");
     }
     preload() {
+        this.load.image('arrow', './assets/images/arrow.png');
         this.load.image('kitchen','./assets/backgrounds/kitchen.png');
         this.load.image('redkey','./assets/images/red key.png');
         this.load.image('box','./assets/images/box.png');
         this.load.image('duck','./assets/images/duck.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
-        this.load.image('arrow', './assets/images/arrow.png');
     }
     onEnter() {
         //background
@@ -399,6 +401,7 @@ class Bedroom extends AdventureScene {
         super("bedroom","Bedroom");
     }
     preload(){
+        this.load.image('arrow', './assets/images/arrow.png');
         this.load.image('bedroom','./assets/backgrounds/bedroom.png');
         this.load.image('goldkey','./assets/images/gold key.png');
     }
