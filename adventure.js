@@ -174,7 +174,7 @@ class AdventureScene extends Phaser.Scene {
         }
 
     //door cinematic
-    doorlogic(doorname) {
+    doorlogic(doorname, haskey) {
         //create door, background, exit button
         let background = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
         let door = this.add.image(this.w *.35,this.h*.45, `${doorname}`);
@@ -206,17 +206,21 @@ class AdventureScene extends Phaser.Scene {
             this.showMessage("Open door?")
         })
         .on('pointerdown',()=> {
-            this.showMessage("You opened the door.");
-            this.tweens.add({
-                targets: [door, background],
-                //y: `-=${2 * this.s}`,
-                scale: 5,
-                alpha: { from: 1, to: 0 },
-                duration: 1500,
-                onComplete: () => background.destroy(),
-                onComplete: () => background.destroy(),
-                onComplete: () => button.destroy()
-            });
+            if (haskey == true) {
+                this.showMessage("You opened the door.");
+                this.tweens.add({
+                    targets: [door, background],
+                    //y: `-=${2 * this.s}`,
+                    scale: 5,
+                    alpha: { from: 1, to: 0 },
+                    duration: 1500,
+                    onComplete: () => background.destroy(),
+                    onComplete: () => background.destroy(),
+                    onComplete: () => button.destroy()
+                });
+            } else {
+                this.showMessage("You don't have the right key.");
+            }
         })
 
 

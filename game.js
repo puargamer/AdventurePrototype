@@ -155,6 +155,7 @@ class Entrance extends AdventureScene {
         this.load.image('entrance','./assets/backgrounds/entrance.png');
         this.load.image('chains','./assets/images/chains.png');
         this.load.image('bluekey','./assets/images/blue key.png');
+        this.load.image('lock','./assets/images/lock.png');
     }
     onEnter() {
         //background
@@ -163,11 +164,23 @@ class Entrance extends AdventureScene {
         background.scale = .5;
 
         //locks
+        let lock1 = this.add.image(this.w *.36,this.h *.47,'lock');
+        let lock2 = this.add.image(this.w *.34,this.h *.27,'lock');
+        lock1.scale = lock2.scale = .1;
         let chain1 = this.add.image(this.w *.35,this.h *.3,'chains');
-        let chain2 = this.add.image(this.w *.35,this.h *.3,'chains');
-        chain1.scale = chain2.scale = .5;
-
+        let chain2 = this.add.image(this.w *.35,this.h *.1,'chains');
+        chain1.scale  = chain2.scale = .5;
         chain2.flipX= true;
+
+        lock1.setInteractive()
+            .on('pointerover',()=>{
+                this.showMessage("A Chicken lock.")
+            })
+
+        lock2.setInteractive()
+            .on('pointerover',()=>{
+                this.showMessage("A Duck lock.")
+            })
 
         //bluekey
         if (!this.hasItem("Blue Key")) {
@@ -290,7 +303,7 @@ class Kitchen extends AdventureScene {
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
 
-        this.doorlogic('bluedoor');
+        this.doorlogic('bluedoor', true);
 
         //redkey
         if (!this.hasItem("Red Key")) {
@@ -419,7 +432,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[Kitchen, Beginning,Entrance,LivingRoom,Bedroom, Ending],
+    scene:[Kitchen, Entrance, Beginning,LivingRoom,Bedroom, Ending],
     title: "Adventure Game",
 });
 
