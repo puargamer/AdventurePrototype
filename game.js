@@ -137,7 +137,14 @@ class Ending extends Phaser.Scene {
     constructor() {
         super('ending')
     }
+    preload() {
+        this.load.image('outside','./assets/backgrounds/outside.png');
+    }
     create(){
+        //background
+        let background = this.add.image(this.w *.35,this.h *.5,'outside').setOrigin(0.5);
+        background.scale = .5;
+
         this.add.text(50,50, "You win!").setFontSize(50);
         this.add.text(50,100, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => {
@@ -223,6 +230,7 @@ class LivingRoom extends AdventureScene {
     }
     preload() {
         this.load.image('living room','./assets/backgrounds/living room.png');
+        this.load.image('bluedoor','./assets//images/blue door.png');
         this.load.image('chicken','./assets/images/chicken.png');
     }
     onEnter() {
@@ -239,6 +247,10 @@ class LivingRoom extends AdventureScene {
             .on('pointerdown', () => {
                 this.gotoScene('kitchen');
             });
+
+        this.doorlogic('bluedoor', 'Blue Key', 'kitchen');
+
+        this.arrows(true,false,true);
 
             //box
         if (!this.hasItem("chicken")) {
@@ -297,13 +309,12 @@ class Kitchen extends AdventureScene {
         this.load.image('box','./assets/images/box.png');
         this.load.image('duck','./assets/images/duck.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
+        this.load.image('arrow', './assets/images/arrow.png');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
-
-        this.doorlogic('bluedoor', true);
 
         //redkey
         if (!this.hasItem("Red Key")) {
@@ -388,9 +399,14 @@ class Bedroom extends AdventureScene {
         super("bedroom","Bedroom");
     }
     preload(){
+        this.load.image('bedroom','./assets/backgrounds/bedroom.png');
         this.load.image('goldkey','./assets/images/gold key.png');
     }
     onEnter() {
+        //background
+        let background = this.add.image(this.w *.35,this.h *.5,'bedroom').setOrigin(0.5);
+        background.scale = .5;
+
         //gold key
         if (!this.hasItem("Gold Key")) {
             let goldkey = this.add.image(this.w *.56,this.h *.65,'goldkey')
@@ -432,7 +448,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[Kitchen, Entrance, Beginning,LivingRoom,Bedroom, Ending],
+    scene:[LivingRoom, Kitchen, Entrance, Beginning,Bedroom, Ending],
     title: "Adventure Game",
 });
 
