@@ -175,9 +175,46 @@ class AdventureScene extends Phaser.Scene {
 
     //door cinematic
     doorlogic(doorname) {
-        //create door, background
+        //create door, background, exit button
         let background = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
         let door = this.add.image(this.w *.35,this.h*.45, `${doorname}`);
         door.scale = .3;
+        let button = this.add.text(50,50, "Leave").setFontSize(50);
+
+        //button logic
+        button.setInteractive()
+        .on('pointerdown',()=> {
+            this.tweens.add({
+                targets: [door, background],
+                y: `-=${2 * this.s}`,
+                alpha: { from: 1, to: 0 },
+                duration: 500,
+                onComplete: () => background.destroy(),
+                onComplete: () => door.destroy(),
+                onComplete: () => button.destroy()
+            });
+        })
+
+
+    //door logic
+    door.setInteractive()
+        .on('pointerover',()=>{
+            this.showMessage("Open door?")
+        })
+        .on('pointerdown',()=> {
+            this.showMessage("You opened the door.");
+            this.tweens.add({
+                targets: [door, background],
+                //y: `-=${2 * this.s}`,
+                scale: 5,
+                alpha: { from: 1, to: 0 },
+                duration: 1500,
+                onComplete: () => background.destroy(),
+                onComplete: () => background.destroy()
+            });
+        })
+
+
+
     }
 }
