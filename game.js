@@ -207,7 +207,6 @@ class LivingRoom extends AdventureScene {
                 this.gotoScene('bedroom');
             });
         
-        console.log(this.hasItem("redkey"));
     }
 }
 
@@ -227,7 +226,7 @@ class Kitchen extends AdventureScene {
         //redkey
         console.log(this.hasItem("redkey"));
         if (!this.hasItem("Red Key")) {
-            let redkey = this.add.image(this.w *.56,this.h *.65,'redkey')
+            let redkey = this.add.image(this.w *.2,this.h *.66,'redkey')
                 redkey.scale =.2
                 redkey.setInteractive()
                 .on('pointerover',()=>{
@@ -274,7 +273,31 @@ class Bedroom extends AdventureScene {
     constructor() {
         super("bedroom","Bedroom");
     }
+    preload(){
+        this.load.image('goldkey','./assets/images/gold key.png');
+    }
     onEnter() {
+        //gold key
+        if (!this.hasItem("Gold Key")) {
+            let goldkey = this.add.image(this.w *.56,this.h *.65,'goldkey')
+                goldkey.scale =.2
+                goldkey.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage("A gold key.")
+                })
+                .on('pointerdown',()=> {
+                    this.showMessage("You picked up the Gold Key.");
+                    this.gainItem('Gold Key');
+                    this.tweens.add({
+                        targets: goldkey,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => goldkey.destroy()
+                    });
+                })
+        }
+
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
             .setFontSize(this.s * 2)
             .setInteractive()
