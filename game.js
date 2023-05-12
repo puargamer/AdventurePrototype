@@ -240,9 +240,9 @@ class LivingRoom extends AdventureScene {
                         box.destroy();
                         
                         //spawn chicken
-                        let duck = this.add.image(this.w *.5,this.h *.45,'chicken');
-                        duck.scale = .05;
-                        duck.setInteractive()
+                        let chicken = this.add.image(this.w *.5,this.h *.45,'chicken');
+                        chicken.scale = .15;
+                        chicken.setInteractive()
                         .on('pointerover',()=>{
                             this.showMessage("A real chicken.")
                         })

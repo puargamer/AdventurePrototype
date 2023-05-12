@@ -181,6 +181,10 @@ class AdventureScene extends Phaser.Scene {
         door.scale = .3;
         let button = this.add.text(50,50, "Leave").setFontSize(50);
 
+        door.setDepth(1);
+        background.setDepth(1);
+        button.setDepth(1);
+
         //button logic
         button.setInteractive()
         .on('pointerdown',()=> {
@@ -210,7 +214,8 @@ class AdventureScene extends Phaser.Scene {
                 alpha: { from: 1, to: 0 },
                 duration: 1500,
                 onComplete: () => background.destroy(),
-                onComplete: () => background.destroy()
+                onComplete: () => background.destroy(),
+                onComplete: () => button.destroy()
             });
         })
 
