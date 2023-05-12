@@ -254,11 +254,16 @@ class Kitchen extends AdventureScene {
         this.load.image('redkey','./assets/images/red key.png');
         this.load.image('box','./assets/images/box.png');
         this.load.image('duck','./assets/images/duck.png');
+        this.load.image('door','./assets/images/blue door.png');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
+
+        let noob = this.doorloader("blue door");
+        noob.angle = 90;
+        //let door = this.add.image(this.w *.35,this.h *.5,'door');
 
         //redkey
         if (!this.hasItem("Red Key")) {

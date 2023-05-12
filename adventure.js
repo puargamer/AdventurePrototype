@@ -147,4 +147,39 @@ class AdventureScene extends Phaser.Scene {
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
     }
+
+    //custom functions
+
+    //loads door
+    doorloader(door) {
+        this.load.once("complete", this.doorcreate,this)
+        this.load.image('door', `./assets/images/blue door.png`);
+        this.load.start();
+        
+        return this.doorcreate();
+    }
+
+    //creates and animates door after loading
+    doorcreate(){
+        let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
+        let bruh = this.add.image(this.w *.35,this.h*.45, 'door');
+        bruh.scale = .3;
+        return bruh;
+
+        /*
+        bruh.setInteractive()
+        .on('pointerover',()=>{
+            this.showMessage("Open door?")
+        })
+        .on('pointerdown',()=> {
+            //this.showMessage("You opened the door.");
+            this.tweens.add({
+                targets: bruh,
+                y: `-=${2 * this.s}`,
+                alpha: { from: 1, to: 0 },
+                duration: 500,
+                onComplete: () => bruh.destroy()
+            });
+        }) */
+        }
 }
