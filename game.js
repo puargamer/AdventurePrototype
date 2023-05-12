@@ -120,9 +120,18 @@ class Outro extends Phaser.Scene {
 //my own scenes
 class Entrance extends AdventureScene {
     constructor() {
-        super("entrance","entrance room");
+        super("entrance","Entrance");
+    }
+    preload() {
+        this.load.image('entrance','./assets/backgrounds/entrance.png');
     }
     onEnter() {
+        //background
+        let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x584024).setOrigin(0);
+
+        let background = this.add.image(this.w *.35,this.h *.5,'entrance').setOrigin(0.5);
+        background.scale = .3;
+
         let livingroom = this.add.text(this.w * 0.3, this.w * 0.4, "living room")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -137,9 +146,16 @@ class Entrance extends AdventureScene {
 
 class LivingRoom extends AdventureScene {
     constructor() {
-        super("livingroom", "living room");
+        super("livingroom", "Living Room");
+    }
+    preload() {
+        this.load.image('living room','./assets/backgrounds/living room.png');
     }
     onEnter() {
+        //background
+        let background = this.add.image(this.w *.35,this.h *.5,'living room').setOrigin(0.5);
+        background.scale = .38;
+
         let kitchen = this.add.text(this.w * 0.3, this.w * 0.4, "kitchen")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -164,10 +180,15 @@ class LivingRoom extends AdventureScene {
 
 class Kitchen extends AdventureScene {
     constructor(){
-        super("kitchen", "kitchen room");
+        super("kitchen", "Kitchen");
+    }
+    preload() {
+        this.load.image('kitchen','./assets/backgrounds/kitchen.png');
     }
     onEnter() {
-        
+        //backgroundnn
+        let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
+        background.scale = .38;
 
 
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
@@ -194,7 +215,7 @@ class Kitchen extends AdventureScene {
 
 class Bedroom extends AdventureScene {
     constructor() {
-        super("bedroom","bedroom");
+        super("bedroom","Bedroom");
     }
     onEnter() {
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
@@ -217,7 +238,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[Entrance,LivingRoom,Kitchen,Bedroom],
+    scene:[LivingRoom,Entrance,Kitchen,Bedroom],
     title: "Adventure Game",
 });
 
