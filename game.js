@@ -181,6 +181,7 @@ class LivingRoom extends AdventureScene {
     }
     preload() {
         this.load.image('living room','./assets/backgrounds/living room.png');
+        this.load.image('chicken','./assets/images/chicken.png');
     }
     onEnter() {
         //background
@@ -196,6 +197,40 @@ class LivingRoom extends AdventureScene {
             .on('pointerdown', () => {
                 this.gotoScene('kitchen');
             });
+
+            //box
+        if (!this.hasItem("chicken")) {
+            let box = this.add.image(this.w *.5,this.h *.45,'box')
+                box.scale =.06
+                box.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage("A box with a yellow lock.")
+                })
+                .on('pointerdown',()=>{
+                    if(this.hasItem("Gold Key")){
+                        box.destroy();
+                        
+                        //spawn chicken
+                        let duck = this.add.image(this.w *.5,this.h *.45,'chicken');
+                        duck.scale = .05;
+                        duck.setInteractive()
+                        .on('pointerover',()=>{
+                            this.showMessage("A real chicken.")
+                        })
+                        .on('pointerdown',()=> {
+                            this.showMessage("You picked up the Chicken.");
+                            this.gainItem('Chicken');
+                            this.tweens.add({
+                                targets: chicken,
+                                y: `-=${2 * this.s}`,
+                                alpha: { from: 1, to: 0 },
+                                duration: 500,
+                                onComplete: () => chicken.destroy()
+                            });
+                        })  
+                    }
+                })
+        }
 
         let bedroom = this.add.text(this.w * 0.3, this.w * 0.3, "bedroom")
             .setFontSize(this.s * 2)
@@ -217,6 +252,8 @@ class Kitchen extends AdventureScene {
     preload() {
         this.load.image('kitchen','./assets/backgrounds/kitchen.png');
         this.load.image('redkey','./assets/images/red key.png');
+        this.load.image('box','./assets/images/box.png');
+        this.load.image('duck','./assets/images/duck.png');
     }
     onEnter() {
         //background
@@ -224,7 +261,6 @@ class Kitchen extends AdventureScene {
         background.scale = .38;
 
         //redkey
-        console.log(this.hasItem("redkey"));
         if (!this.hasItem("Red Key")) {
             let redkey = this.add.image(this.w *.2,this.h *.66,'redkey')
                 redkey.scale =.2
@@ -245,6 +281,39 @@ class Kitchen extends AdventureScene {
                 })
         }
 
+        //box
+        if (!this.hasItem("duck")) {
+            let box = this.add.image(this.w *.57,this.h *.61,'box')
+                box.scale =.06
+                box.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage("A box with a yellow lock.")
+                })
+                .on('pointerdown',()=>{
+                    if(this.hasItem("Gold Key")){
+                        box.destroy();
+                        
+                        //spawn duck
+                        let duck = this.add.image(this.w *.57,this.h *.61,'duck');
+                        duck.scale = .05;
+                        duck.setInteractive()
+                        .on('pointerover',()=>{
+                            this.showMessage("A rubber duck.")
+                        })
+                        .on('pointerdown',()=> {
+                            this.showMessage("You picked up the Duck.");
+                            this.gainItem('Duck');
+                            this.tweens.add({
+                                targets: duck,
+                                y: `-=${2 * this.s}`,
+                                alpha: { from: 1, to: 0 },
+                                duration: 500,
+                                onComplete: () => duck.destroy()
+                            });
+                        })  
+                    }
+                })
+        }
 
 
         this.add.text(this.w * 0.3, this.w * 0.4, "living room")
