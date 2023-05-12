@@ -117,6 +117,94 @@ class Outro extends Phaser.Scene {
     }
 }
 
+//my own scenes
+class Entrance extends AdventureScene {
+    constructor() {
+        super("entrance","entrance room");
+    }
+    onEnter() {
+        let livingroom = this.add.text(this.w * 0.3, this.w * 0.4, "living room")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You've got no other choice, really.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('livingroom');
+            });
+    }
+}
+
+class LivingRoom extends AdventureScene {
+    constructor() {
+        super("livingroom", "living room");
+    }
+    onEnter() {
+        let kitchen = this.add.text(this.w * 0.3, this.w * 0.4, "kitchen")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You've got no other choice, really.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('kitchen');
+            });
+
+        let bedroom = this.add.text(this.w * 0.3, this.w * 0.3, "bedroom")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You've got no other choice, really.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('bedroom');
+            });
+    }
+}
+
+class Kitchen extends AdventureScene {
+    constructor(){
+        super("kitchen", "kitchen room");
+    }
+    onEnter() {
+        this.add.text(this.w * 0.3, this.w * 0.4, "living room")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("You've got no other choice, really.");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('livingroom');
+        });
+
+        this.add.text(this.w * 0.3, this.w * 0.3, "entrance")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("You've got no other choice, really.");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('entrance');
+        });
+    }
+}
+
+class Bedroom extends AdventureScene {
+    constructor() {
+        super("bedroom","bedroom");
+    }
+    onEnter() {
+        this.add.text(this.w * 0.3, this.w * 0.4, "living room")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("You've got no other choice, really.");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('livingroom');
+            });
+    }
+}
 
 const game = new Phaser.Game({
     scale: {
@@ -125,7 +213,8 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Intro, Demo1, Demo2, Outro],
+    //scene: [Intro, Demo1, Demo2, Outro],
+    scene:[Entrance,LivingRoom,Kitchen,Bedroom],
     title: "Adventure Game",
 });
 
