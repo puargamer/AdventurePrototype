@@ -142,14 +142,17 @@ class Ending extends Phaser.Scene {
     }
     create(){
         //background
-        let background = this.add.image(this.w *.35,this.h *.5,'outside').setOrigin(0.5);
-        background.scale = .5;
+        let background = this.add.image(200, 0,'outside').setOrigin(0);
+        background.scale = .38;
 
-        this.add.text(50,50, "You win!").setFontSize(50);
-        this.add.text(50,100, "Click anywhere to restart.").setFontSize(20);
+        this.add.rectangle(960, 900, 1000, 200, 0x3c78d8);
+        this.add.text(960,900, "You win!").setFontSize(50)
+            .setOrigin(0.5);
+        this.add.text(960,950, "Click anywhere to restart.").setFontSize(20)
+            .setOrigin(0.5);
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
-            this.time.delayedCall(1000, () => this.scene.start('ending'));
+            this.time.delayedCall(1000, () => this.scene.start('beginning'));
         });
     }
 }
@@ -228,12 +231,12 @@ class Entrance extends AdventureScene {
                     console.log('locked 2 is');
                     console.log(locked2);
                     if (locked1 == false && locked2 == false) {
-                        this.showMessage("You opened all locks!");
+                        this.showMessage("You opened all locks! Open the door?");
 
-                            //stuff
-                            //this.input.once('pointerdown', () => {
-                                //this.doorlogic('door', null, 'ending');
-                            //});
+                            //go to ending
+                            this.input.once('pointerdown', () => {
+                                this.doorlogic('door', null, 'ending');
+                            });
                     }
                 }
             })
@@ -264,7 +267,12 @@ class Entrance extends AdventureScene {
                     console.log('locked 2 is');
                     console.log(locked2);
                     if (locked1 == false && locked2 == false) {
-                        this.showMessage("You opened all locks!");
+                        this.showMessage("You opened all locks! Open the door?");
+
+                        //go to ending
+                        this.input.once('pointerdown', () => {
+                            this.doorlogic('door', null, 'ending');
+                        });
                     }
                 }
             })
@@ -308,6 +316,7 @@ class LivingRoom extends AdventureScene {
         this.load.image('living room','./assets/backgrounds/living room.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
         this.load.image('reddoor','./assets/images/red door.png');
+        this.load.image('reddoor','./assets/images/door.png');
         this.load.image('box','./assets/images/box.png');
         this.load.image('chicken','./assets/images/chicken.png');
         this.load.audio('dooraudio','./assets/audio/door.mp3');
@@ -322,10 +331,10 @@ class LivingRoom extends AdventureScene {
         let sound = this.sound.add('equip', { loop: false });
 
         //arrows
-        this.arrows(false,true,true, 
-                    null, 'reddoor', 'bluedoor', 
+        this.arrows(true,true,true, 
+                    'door', 'reddoor', 'bluedoor', 
                     null, 'Red Key', 'Blue Key', 
-                    null, 'bedroom', 'kitchen');
+                    'entrance', 'bedroom', 'kitchen');
 
         
                     
@@ -524,7 +533,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[Entrance, LivingRoom, Kitchen, Beginning,Bedroom, Ending],
+    scene:[Ending, Entrance, LivingRoom, Kitchen, Beginning,Bedroom],
     title: "Adventure Game",
 });
 

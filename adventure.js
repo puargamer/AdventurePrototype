@@ -191,6 +191,10 @@ class AdventureScene extends Phaser.Scene {
                 
                 //if door doesn't need key, just enter
                 if (keyname == null) {
+                    //play audio
+                    let dooraudio = this.sound.add('dooraudio', { loop: false });
+                    dooraudio.play();
+                    
                     this.showMessage("You opened the door.");
                     
                     //animation
