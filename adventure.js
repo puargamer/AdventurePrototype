@@ -187,6 +187,25 @@ class AdventureScene extends Phaser.Scene {
                 this.showMessage("Open door?")
             })
             .on('pointerdown',()=> {
+                //if door doesn't need key, just enter
+                if (keyname == null) {
+                    this.showMessage("You opened the door.");
+                    this.tweens.add({
+                        targets: [door, background],
+                        //y: `-=${2 * this.s}`,
+                        scale: 5,
+                        alpha: { from: 1, to: 0 },
+                        duration: 1500,
+                        onComplete: () => background.destroy(),
+                        onComplete: () => background.destroy(),
+                        onComplete: () => button.destroy()
+                    });
+                    
+                    //goes to next scene
+                    this.gotoScene(`${scene}`);
+                    return;
+                }
+                
                 if (this.hasItem(`${keyname}`)) {
                     this.showMessage("You opened the door.");
                     this.tweens.add({

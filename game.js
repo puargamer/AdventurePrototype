@@ -192,12 +192,15 @@ class Entrance extends AdventureScene {
          let locked1 = true;
          let locked2 = true;
 
+
+        //lock1
         lock1.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A Chicken lock.")
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Chicken")) {
+                    this.loseItem("Chicken");
                     this.showMessage("You opened the Chicken lock.");
                     locked1 = false;
 
@@ -217,17 +220,24 @@ class Entrance extends AdventureScene {
                     console.log('locked 2 is');
                     console.log(locked2);
                     if (locked1 == false && locked2 == false) {
-                        this.showMessage("you win locked1!!!!!");
+                        this.showMessage("You opened all locks!");
+
+                            //stuff
+                            //this.input.once('pointerdown', () => {
+                                //this.doorlogic('door', null, 'ending');
+                            //});
                     }
                 }
             })
 
+        //lock2
         lock2.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A Duck lock.")
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Duck")) {
+                    this.loseItem("Duck");
                     this.showMessage("You opened the Duck lock.");
                     locked2 = false;
 
@@ -245,7 +255,7 @@ class Entrance extends AdventureScene {
                     console.log('locked 2 is');
                     console.log(locked2);
                     if (locked1 == false && locked2 == false) {
-                        this.showMessage("you win locked1!!!!!");
+                        this.showMessage("You opened all locks!");
                     }
                 }
             })
@@ -286,22 +296,13 @@ class LivingRoom extends AdventureScene {
         this.load.image('living room','./assets/backgrounds/living room.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
         this.load.image('reddoor','./assets/images/red door.png');
+        this.load.image('box','./assets/images/box.png');
         this.load.image('chicken','./assets/images/chicken.png');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'living room').setOrigin(0.5);
         background.scale = .38;
-
-        let kitchen = this.add.text(this.w * 0.3, this.w * 0.4, "kitchen")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
-            })
-            .on('pointerdown', () => {
-                this.gotoScene('kitchen');
-            });
 
         //arrows
         this.arrows(false,true,true, 
@@ -311,8 +312,9 @@ class LivingRoom extends AdventureScene {
 
         //box
         if (!this.hasItem("Chicken")) {
-            let box = this.add.image(this.w *.5,this.h *.45,'box')
-                box.scale =.06
+            console.log('chicken');
+            let box = this.add.image(this.w *.5,this.h *.45,'box');
+                box.scale =.06;
                 box.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A box with a yellow lock.")
