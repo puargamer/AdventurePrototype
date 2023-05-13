@@ -168,6 +168,7 @@ class Entrance extends AdventureScene {
         this.load.image('door','./assets/images/door.png');
         this.load.audio('dooraudio','./assets/audio/door.mp3');
         this.load.audio('equip','./assets/audio/equip.mp3');
+        this.load.audio('chainaudio','./assets/audio/chains.mp3');
     }
     onEnter() {
         //background
@@ -177,6 +178,7 @@ class Entrance extends AdventureScene {
 
         //equip sound
         let sound = this.sound.add('equip', { loop: false });
+        let chainaudio = this.sound.add('chainaudio', { loop: false});
 
         //arrows
         this.arrows(true,false,false, 
@@ -205,6 +207,7 @@ class Entrance extends AdventureScene {
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Chicken")) {
+                    chainaudio.play();
                     this.loseItem("Chicken");
                     this.showMessage("You opened the Chicken lock.");
                     locked1 = false;
@@ -242,12 +245,13 @@ class Entrance extends AdventureScene {
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Duck")) {
+                    chainaudio.play();
                     this.loseItem("Duck");
                     this.showMessage("You opened the Duck lock.");
                     locked2 = false;
 
                     this.tweens.add({
-                        targets: [lock2, chain1],
+                        targets: [lock2, chain2],
                         y: `-=${2 * this.s}`,
                         alpha: { from: 1, to: 0 },
                         duration: 500,
