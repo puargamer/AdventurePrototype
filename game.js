@@ -158,6 +158,7 @@ class Entrance extends AdventureScene {
     constructor() {
         super("entrance","Entrance");
     }
+    
     preload() {
         this.load.image('arrow','./assets/images/arrow.png');
         this.load.image('entrance','./assets/backgrounds/entrance.png');
@@ -187,15 +188,68 @@ class Entrance extends AdventureScene {
         chain1.scale  = chain2.scale = .5;
         chain2.flipX= true;
 
+         //are the locks locked?
+         let locked1 = true;
+         let locked2 = true;
+
         lock1.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A Chicken lock.")
+            })
+            .on('pointerdown',()=> {
+                if (this.hasItem("Chicken")) {
+                    this.showMessage("You opened the Chicken lock.");
+                    locked1 = false;
+
+                    
+
+                    this.tweens.add({
+                        targets: [lock1, chain1],
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => lock1.destroy(),
+                        onComplete: () => chain1.destroy()
+                    });
+
+                    console.log('locked 1 is');
+                    console.log(locked1);
+                    console.log('locked 2 is');
+                    console.log(locked2);
+                    if (locked1 == false && locked2 == false) {
+                        this.showMessage("you win locked1!!!!!");
+                    }
+                }
             })
 
         lock2.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A Duck lock.")
             })
+            .on('pointerdown',()=> {
+                if (this.hasItem("Duck")) {
+                    this.showMessage("You opened the Duck lock.");
+                    locked2 = false;
+
+                    this.tweens.add({
+                        targets: [lock2, chain1],
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => lock2.destroy(),
+                        onComplete: () => chain2.destroy()
+                    });
+
+                    console.log('locked 1 is');
+                    console.log(locked1);
+                    console.log('locked 2 is');
+                    console.log(locked2);
+                    if (locked1 == false && locked2 == false) {
+                        this.showMessage("you win locked1!!!!!");
+                    }
+                }
+            })
+
 
         //bluekey
         if (!this.hasItem("Blue Key")) {
@@ -230,6 +284,7 @@ class Entrance extends AdventureScene {
                 this.gotoScene('livingroom');
             });
     }
+
 }
 
 class LivingRoom extends AdventureScene {

@@ -230,6 +230,13 @@ class AdventureScene extends Phaser.Scene {
             arrow.scale = .1;
 
             arrow.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage(`A ${downdoor}.`)
+                    arrow.scale +=.1;
+                })
+                .on('pointerout',()=> {
+                    arrow.scale -=.1;
+                })
                 .on('pointerdown',()=> {
                     //if don't need key, just go to room
                     if (downdoorkey == null) {
@@ -248,6 +255,13 @@ class AdventureScene extends Phaser.Scene {
             arrow.scale = .1;
 
             arrow.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage(`A ${leftdoor}.`)
+                    arrow.scale +=.1;
+                })
+                .on('pointerout',()=> {
+                    arrow.scale -=.1;
+                })
                 .on('pointerdown',()=> {
                     //if don't need key, just go to room
                     if (leftdoorkey == null) {
@@ -267,6 +281,13 @@ class AdventureScene extends Phaser.Scene {
             arrow.scale = .1;
 
             arrow.setInteractive()
+                .on('pointerover',()=>{
+                    this.showMessage(`A ${rightdoor}.`)
+                    arrow.scale +=.1;
+                })
+                .on('pointerout',()=> {
+                    arrow.scale -=.1;
+                })
                 .on('pointerdown',()=> {
                     //if don't need key, just go to room
                     if (rightdoorkey == null) {
