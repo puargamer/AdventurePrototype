@@ -11,7 +11,7 @@ Experience requirements:
 - **4+ locations in the game world**: Entrance, LivingRoom, Kitchen, and Bedroom
 - **2+ interactive objects in most scenes**: There is at least a key and an arrow leading to a door in all scenes. 
 - **Many objects have `pointerover` messages**: Keys and doors describe themselves on mouse hover.
-- **Many objects have `pointerdown` effects**: Keys and chests disappear on equip/use.
+- **Many objects have `pointerdown` effects**: Keys and chests disappear on equip/use. Doors zoom in on entrance.
 - **Some objects are themselves animated**: The 2 final keys spin around.
 
 Asset sources:
