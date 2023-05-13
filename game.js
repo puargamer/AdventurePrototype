@@ -273,16 +273,6 @@ class Entrance extends AdventureScene {
                 })
         }
 
-
-        let livingroom = this.add.text(this.w * 0.3, this.w * 0.4, "living room")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
-            })
-            .on('pointerdown', () => {
-                this.gotoScene('livingroom');
-            });
     }
 
 }
@@ -353,16 +343,6 @@ class LivingRoom extends AdventureScene {
                 })
         }
 
-        let bedroom = this.add.text(this.w * 0.3, this.w * 0.3, "bedroom")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
-            })
-            .on('pointerdown', () => {
-                this.gotoScene('bedroom');
-            });
-        
     }
 }
 
@@ -445,26 +425,6 @@ class Kitchen extends AdventureScene {
                 })
         }
 
-
-        this.add.text(this.w * 0.3, this.w * 0.4, "living room")
-        .setFontSize(this.s * 2)
-        .setInteractive()
-        .on('pointerover', () => {
-            this.showMessage("You've got no other choice, really.");
-        })
-        .on('pointerdown', () => {
-            this.gotoScene('livingroom');
-        });
-
-        this.add.text(this.w * 0.3, this.w * 0.3, "entrance")
-        .setFontSize(this.s * 2)
-        .setInteractive()
-        .on('pointerover', () => {
-            this.showMessage("You've got no other choice, really.");
-        })
-        .on('pointerdown', () => {
-            this.gotoScene('entrance');
-        });
     }
 }
 
@@ -509,16 +469,6 @@ class Bedroom extends AdventureScene {
                     });
                 })
         }
-
-        this.add.text(this.w * 0.3, this.w * 0.4, "living room")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("You've got no other choice, really.");
-            })
-            .on('pointerdown', () => {
-                this.gotoScene('livingroom');
-            });
     }
 }
 
