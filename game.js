@@ -265,7 +265,7 @@ class LivingRoom extends AdventureScene {
                     null, 'bedroom', 'kitchen');
 
         //box
-        if (!this.hasItem("chicken")) {
+        if (!this.hasItem("Chicken")) {
             let box = this.add.image(this.w *.5,this.h *.45,'box')
                 box.scale =.06
                 box.setInteractive()
@@ -329,10 +329,10 @@ class Kitchen extends AdventureScene {
         background.scale = .38;
 
         //arrows
-        this.arrows(false,true,false, 
-                    null, 'bluedoor', null, 
-                    null, 'Blue Key', null, 
-                    null, 'livingroom', null);
+        this.arrows(true,true,false, 
+                    'bluedoor', 'door', null, 
+                    'Blue Key', null, null, 
+                    'livingroom', 'entrance', null);
 
         //redkey
         if (!this.hasItem("Red Key")) {
@@ -357,6 +357,7 @@ class Kitchen extends AdventureScene {
 
         //box
         if (!this.hasItem("duck")) {
+            console.log(this.hasItem("Duck"));
             let box = this.add.image(this.w *.57,this.h *.61,'box')
                 box.scale =.06
                 box.setInteractive()
@@ -420,11 +421,18 @@ class Bedroom extends AdventureScene {
         this.load.image('arrow', './assets/images/arrow.png');
         this.load.image('bedroom','./assets/backgrounds/bedroom.png');
         this.load.image('goldkey','./assets/images/gold key.png');
+        this.load.image('reddoor', './assets/images/red door.png');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'bedroom').setOrigin(0.5);
         background.scale = .38;
+
+        //arrows
+        this.arrows(true,false,false, 
+            'reddoor', null, null, 
+            'Red Key', null, null, 
+            'livingroom', null, null);
 
         //gold key
         if (!this.hasItem("Gold Key")) {
@@ -467,7 +475,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[LivingRoom, Kitchen, Entrance, Beginning,Bedroom, Ending],
+    scene:[Entrance, LivingRoom, Kitchen, Beginning,Bedroom, Ending],
     title: "Adventure Game",
 });
 
