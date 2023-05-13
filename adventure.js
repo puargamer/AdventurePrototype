@@ -154,9 +154,10 @@ class AdventureScene extends Phaser.Scene {
     //
     //Door object cinematic that opens if you have the right key
     //doorname = door png, keyname = name of key, scene = next scene
-    //requires door to be preloaded in scene
+    //requires door image and door.mp3 to be preloaded in scene
     doorlogic(doorname, keyname, scene) {
         //create door, background, exit button
+
         let background = this.add.rectangle(0,0, this.w * .75, this.h, 0x000000).setOrigin(0);
         let door = this.add.image(this.w *.35,this.h*.45, `${doorname}`);
         door.scale = .3;
@@ -187,9 +188,12 @@ class AdventureScene extends Phaser.Scene {
                 this.showMessage("Open door?")
             })
             .on('pointerdown',()=> {
+                
                 //if door doesn't need key, just enter
                 if (keyname == null) {
                     this.showMessage("You opened the door.");
+                    
+                    //animation
                     this.tweens.add({
                         targets: [door, background],
                         //y: `-=${2 * this.s}`,
@@ -207,6 +211,10 @@ class AdventureScene extends Phaser.Scene {
                 }
                 
                 if (this.hasItem(`${keyname}`)) {
+                    //play audio
+                    let dooraudio = this.sound.add('dooraudio', { loop: false });
+                    dooraudio.play();
+
                     this.showMessage("You opened the door.");
                     this.tweens.add({
                         targets: [door, background],

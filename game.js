@@ -166,12 +166,17 @@ class Entrance extends AdventureScene {
         this.load.image('bluekey','./assets/images/blue key.png');
         this.load.image('lock','./assets/images/lock.png');
         this.load.image('door','./assets/images/door.png');
+        this.load.audio('dooraudio','./assets/audio/door.mp3');
+        this.load.audio('equip','./assets/audio/equip.mp3');
     }
     onEnter() {
         //background
         //let color = this.add.rectangle(0,0, this.w * .75, this.h, 0x584024).setOrigin(0);
         let background = this.add.image(this.w *.35,this.h *.5,'entrance').setOrigin(0.5);
         background.scale = .5;
+
+        //equip sound
+        let sound = this.sound.add('equip', { loop: false });
 
         //arrows
         this.arrows(true,false,false, 
@@ -271,6 +276,9 @@ class Entrance extends AdventureScene {
                     this.showMessage("A blue key.")
                 })
                 .on('pointerdown',()=> {
+                    //play sound
+                    sound.play();
+                    
                     this.showMessage("You picked up the Blue Key.");
                     this.gainItem('Blue Key');
                     this.tweens.add({
@@ -298,11 +306,16 @@ class LivingRoom extends AdventureScene {
         this.load.image('reddoor','./assets/images/red door.png');
         this.load.image('box','./assets/images/box.png');
         this.load.image('chicken','./assets/images/chicken.png');
+        this.load.audio('dooraudio','./assets/audio/door.mp3');
+        this.load.audio('equip','./assets/audio/equip.mp3');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'living room').setOrigin(0.5);
         background.scale = .38;
+
+        //equip sound
+        let sound = this.sound.add('equip', { loop: false });
 
         //arrows
         this.arrows(false,true,true, 
@@ -310,6 +323,8 @@ class LivingRoom extends AdventureScene {
                     null, 'Red Key', 'Blue Key', 
                     null, 'bedroom', 'kitchen');
 
+        
+                    
         //box
         if (!this.hasItem("Chicken")) {
             console.log('chicken');
@@ -331,6 +346,9 @@ class LivingRoom extends AdventureScene {
                             this.showMessage("A real chicken.")
                         })
                         .on('pointerdown',()=> {
+                            //play audio
+                            sound.play();
+
                             this.showMessage("You picked up the Chicken.");
                             this.gainItem('Chicken');
                             this.tweens.add({
@@ -359,11 +377,16 @@ class Kitchen extends AdventureScene {
         this.load.image('box','./assets/images/box.png');
         this.load.image('duck','./assets/images/duck.png');
         this.load.image('bluedoor','./assets/images/blue door.png');
+        this.load.audio('dooraudio','./assets/audio/door.mp3');
+        this.load.audio('equip','./assets/audio/equip.mp3');
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'kitchen').setOrigin(0.5);
         background.scale = .38;
+
+        //equip sound
+        let sound = this.sound.add('equip', { loop: false });
 
         //arrows
         this.arrows(true,true,false, 
@@ -380,6 +403,9 @@ class Kitchen extends AdventureScene {
                     this.showMessage("A red key.")
                 })
                 .on('pointerdown',()=> {
+                    //play sound
+                    sound.play();
+
                     this.showMessage("You picked up the Red Key.");
                     this.gainItem('Red Key');
                     this.tweens.add({
@@ -413,6 +439,9 @@ class Kitchen extends AdventureScene {
                             this.showMessage("A rubber duck.")
                         })
                         .on('pointerdown',()=> {
+                            //play audio
+                            sound.play();
+
                             this.showMessage("You picked up the Duck.");
                             this.gainItem('Duck');
                             this.tweens.add({
@@ -439,11 +468,17 @@ class Bedroom extends AdventureScene {
         this.load.image('bedroom','./assets/backgrounds/bedroom.png');
         this.load.image('goldkey','./assets/images/gold key.png');
         this.load.image('reddoor', './assets/images/red door.png');
+        this.load.audio('dooraudio','./assets/audio/door.mp3');
+        this.load.audio('equip','./assets/audio/equip.mp3');
+
     }
     onEnter() {
         //background
         let background = this.add.image(this.w *.35,this.h *.5,'bedroom').setOrigin(0.5);
         background.scale = .38;
+
+        //equip sound
+        let sound = this.sound.add('equip', { loop: false });
 
         //arrows
         this.arrows(true,false,false, 
@@ -460,6 +495,9 @@ class Bedroom extends AdventureScene {
                     this.showMessage("A gold key.")
                 })
                 .on('pointerdown',()=> {
+                    //play sound
+                    sound.play();
+
                     this.showMessage("You picked up the Gold Key.");
                     this.gainItem('Gold Key');
                     this.tweens.add({
