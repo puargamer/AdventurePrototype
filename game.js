@@ -206,7 +206,7 @@ class Entrance extends AdventureScene {
         //lock1
         lock1.setInteractive()
             .on('pointerover',()=>{
-                this.showMessage("A Chicken lock.")
+                this.showMessage("A lock that smells like Chicken.")
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Chicken")) {
@@ -244,7 +244,7 @@ class Entrance extends AdventureScene {
         //lock2
         lock2.setInteractive()
             .on('pointerover',()=>{
-                this.showMessage("A Duck lock.")
+                this.showMessage("A lock that smells like Duck.")
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Duck")) {
@@ -286,6 +286,10 @@ class Entrance extends AdventureScene {
                 bluekey.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A blue key.")
+                    bluekey.angle += 5;
+                })
+                .on('pointerout',()=> {
+                    bluekey.angle -= 5;
                 })
                 .on('pointerdown',()=> {
                     //play sound
@@ -354,6 +358,14 @@ class LivingRoom extends AdventureScene {
                         //spawn chicken
                         let chicken = this.add.image(this.w *.5,this.h *.45,'chicken');
                         chicken.scale = .15;
+
+                        this.tweens.add({
+                            targets: chicken,
+                            angle: -360,
+                            repeat: -1,
+                            repeatDelay: 150
+                        })
+
                         chicken.setInteractive()
                         .on('pointerover',()=>{
                             this.showMessage("A real chicken.")
@@ -414,6 +426,10 @@ class Kitchen extends AdventureScene {
                 redkey.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A red key.")
+                    redkey.angle += 5;
+                })
+                .on('pointerout',()=> {
+                    redkey.angle -= 5;
                 })
                 .on('pointerdown',()=> {
                     //play sound
@@ -436,6 +452,7 @@ class Kitchen extends AdventureScene {
             console.log(this.hasItem("Duck"));
             let box = this.add.image(this.w *.57,this.h *.61,'box')
                 box.scale =.06
+                
                 box.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A box with a yellow lock.")
@@ -447,6 +464,14 @@ class Kitchen extends AdventureScene {
                         //spawn duck
                         let duck = this.add.image(this.w *.57,this.h *.61,'duck');
                         duck.scale = .05;
+
+                        this.tweens.add({
+                            targets: duck,
+                            angle: 360,
+                            repeat: -1,
+                            repeatDelay: 150
+                        })
+
                         duck.setInteractive()
                         .on('pointerover',()=>{
                             this.showMessage("A rubber duck.")
@@ -501,11 +526,15 @@ class Bedroom extends AdventureScene {
 
         //gold key
         if (!this.hasItem("Gold Key")) {
-            let goldkey = this.add.image(this.w *.56,this.h *.65,'goldkey')
+            let goldkey = this.add.image(this.w *.56,this.h *.85,'goldkey')
                 goldkey.scale =.2
                 goldkey.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A gold key.")
+                    goldkey.angle += 5;
+                })
+                .on('pointerout',()=> {
+                    goldkey.angle -= 5;
                 })
                 .on('pointerdown',()=> {
                     //play sound
@@ -533,7 +562,7 @@ const game = new Phaser.Game({
         height: 1080
     },
     //scene: [Intro, Demo1, Demo2, Outro],
-    scene:[Ending, Entrance, LivingRoom, Kitchen, Beginning,Bedroom],
+    scene:[Beginning, Entrance, LivingRoom, Kitchen,Bedroom,Ending],
     title: "Adventure Game",
 });
 
