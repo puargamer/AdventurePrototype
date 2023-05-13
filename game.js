@@ -207,6 +207,10 @@ class Entrance extends AdventureScene {
         lock1.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A lock that smells like Chicken.")
+                lock1.scale += .01;
+            })
+            .on('pointerout',()=> {
+                lock1.scale -= .01;
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Chicken")) {
@@ -238,6 +242,8 @@ class Entrance extends AdventureScene {
                                 this.doorlogic('door', null, 'ending');
                             });
                     }
+                } else {
+                    this.showMessage("It won't unlock!");
                 }
             })
 
@@ -245,6 +251,10 @@ class Entrance extends AdventureScene {
         lock2.setInteractive()
             .on('pointerover',()=>{
                 this.showMessage("A lock that smells like Duck.")
+                lock2.scale += .01;
+            })
+            .on('pointerout',()=> {
+                lock2.scale -= .01;
             })
             .on('pointerdown',()=> {
                 if (this.hasItem("Duck")) {
@@ -274,6 +284,8 @@ class Entrance extends AdventureScene {
                             this.doorlogic('door', null, 'ending');
                         });
                     }
+                } else {
+                    this.showMessage("It won't unlock!");
                 }
             })
 
@@ -350,6 +362,10 @@ class LivingRoom extends AdventureScene {
                 box.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A box with a yellow lock.")
+                    box.scale +=.01;
+                })
+                .on('pointerout',()=> {
+                    box.scale -=.01;
                 })
                 .on('pointerdown',()=>{
                     if(this.hasItem("Gold Key")){
@@ -384,6 +400,8 @@ class LivingRoom extends AdventureScene {
                                 onComplete: () => chicken.destroy()
                             });
                         })  
+                    } else {
+                        this.showMessage("It won't unlock!");
                     }
                 })
         }
@@ -456,6 +474,10 @@ class Kitchen extends AdventureScene {
                 box.setInteractive()
                 .on('pointerover',()=>{
                     this.showMessage("A box with a yellow lock.")
+                    box.scale +=.01;
+                })
+                .on('pointerout',()=> {
+                    box.scale -=.01;
                 })
                 .on('pointerdown',()=>{
                     if(this.hasItem("Gold Key")){
@@ -490,6 +512,8 @@ class Kitchen extends AdventureScene {
                                 onComplete: () => duck.destroy()
                             });
                         })  
+                    } else {
+                        this.showMessage("It won't unlock!");
                     }
                 })
         }
